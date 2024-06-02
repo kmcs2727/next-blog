@@ -1,7 +1,10 @@
-import React from 'react'
 
-export default function page() {
+
+export default function ReadAll() {
   return (
-    <h1>Hello</h1>
-  )
+    <div>
+      <h1>Hello</h1>
+      <h3>Bye</h3>
+    </div>
+  );
 }

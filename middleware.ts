@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 export async function middleware(request: any) {
   // const token = await request.headers.get("Authorization")?.split(" ")[1];
-	const token = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImR1bW15QGdtYWlsLmNvbSIsImV4cCI6MTcxNzMyMTU2OH0.lzQLuYKiPqfznl2LWat5xeOHWSRcotzDYnQXDD34IOY";
+	const token = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiZXhwIjoxNzE3Mzc1NzkzfQ.3EasWheG5EGydrY94Q8VJmixTiFIQ8Tnjz6pp71C0NQ";
 	if(!token) {
 		return NextResponse.json({message: "トークンがありません"});
 	}
@@ -14,7 +14,6 @@ export async function middleware(request: any) {
 	} catch(err) {
 		return NextResponse.json({message: "トークンが正しくないので、ログインしてください"});
 	}
-  
 }
 
 export const config = {
