@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export default function login() {
+export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
