@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -7,6 +8,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
@@ -25,6 +27,8 @@ export default function Login() {
       const jsonData = await response.json();
       localStorage.setItem("token", jsonData.token);
       alert(jsonData.message);
+      router.refresh();
+      router.push("/");
     } catch(err) {
       alert("ログイン失敗");
     }
