@@ -7,7 +7,6 @@ export async function POST(request: any) {
 	try {
 		await connectDB();
 		const itemsByPerson = await ItemModel.find({email: requestBody.email});
-		console.log(itemsByPerson);
 		return NextResponse.json({message: "アイテム読み取り成功(ByPERSON)", itemsByPerson: itemsByPerson});
 	} catch(err) {
 		return NextResponse.json({message: "アイテム読み取り失敗(ByPERSON)"});

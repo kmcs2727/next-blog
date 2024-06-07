@@ -3,12 +3,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const toast = useToast();
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
@@ -26,21 +28,50 @@ export default function Login() {
       });
       const jsonData = await response.json();
       localStorage.setItem("token", jsonData.token);
-      alert(jsonData.message);
-      router.refresh();
-      router.push("/");
+      if(jsonData.message.substring(0, 6) === "ログイン成功") {
+        toast.toast({
+          title: jsonData.message,
+        });
+        router.refresh();
+        router.push("/");
+      }
+      else {
+        toast.toast({
+          variant: "destructive",
+          title: jsonData.message,
+        });
+        router.refresh();
+      }
     } catch(err) {
-      alert("ログイン失敗");
+      toast.toast({
+        variant: "destructive",
+        title: "ログイン失敗",
+      });
+      router.refresh();
     }
   }
   return (
-    <div className="p-6 items-center justify-center">
-      <h1 className="font-bold text-2xl mb-6">ログイン</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-md">
-        <Input className="mb-4 w-3/4" type="text" name="email" placeholder="メールアドレス" required value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <Input className="mb-4 w-3/4" type="password" name="password" placeholder="パスワード" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-        <Button variant={'outline'}>ログイン</Button>
-      </form>
+    <div className="flex items-start justify-center min-h-screen bg-gray-100 pt-16">
+      <div className="bg-white shadow-md rounded-lg p-8 w-full  max-w-md">
+        <h1 className="font-bold text-3xl mb-6 text-center text-gray-800">ログイン</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <Input 
+            className="p-3 border border-gray-300 rounded-lg" 
+            type="text" name="email" 
+            placeholder="メールアドレス" 
+            required value={email} 
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input 
+            className="p-3 border border-gray-300 rounded-lg" 
+            type="password" name="password" 
+            placeholder="パスワード" 
+            required value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button variant="outline" className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition duration-300">ログイン</Button>
+        </form>
+      </div>
     </div>
   )
 }

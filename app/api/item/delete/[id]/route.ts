@@ -11,7 +11,7 @@ export async function DELETE(request: any, context: any){
 			await ItemModel.deleteOne({_id: context.params.id});
 			return NextResponse.json({message: "アイテム削除成功"});
 		} else {
-      return NextResponse.json({message: "他の人が作成したアイテムです"});
+    	return NextResponse.json({message: "他の人が作成したアイテムです"});
     }
 	} catch(err) {
 		return NextResponse.json({message: "アイテム削除失敗"});

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 export default function MyPage() {
   const loginUserEmail = useAuth();
   const [itemsByPerson, setItemsByPerson] = useState([]);
+  const [loading, setLoding] = useState(true);
 
   useEffect(() => {
     const getItemsByPerson = async() => {
@@ -22,14 +23,24 @@ export default function MyPage() {
       });
       const jsonData = await response.json();
       setItemsByPerson(jsonData.itemsByPerson);
+      setLoding(false);
     }
     getItemsByPerson();
-  }, [loginUserEmail]);
+  }, [loading]);
+
+  if(loading) {
+    <div className="p-6 items-center justify-center">
+      <h1 className="font-bold text-2xl mb-6">読み込み中...</h1>
+    </div>
+  }
 
   if(itemsByPerson.length > 0){
     return (
       <div className="p-6 items-center justify-center">
+        <h1 className="font-bold text-2xl mb-6">プロフィール設定</h1>
+        <Button variant={'outline'}>更新</Button>
         <h1 className="font-bold text-2xl mb-6">あなたの記事</h1>
+        <h2>{itemsByPerson.length}件</h2>
         <div className="grid grid-cols-2 gap-20">
           {itemsByPerson?.map((item: any) => (
             <div key={item._id} className="border p-2 rounded-lg relative">
@@ -41,16 +52,6 @@ export default function MyPage() {
             </div>
           ))}
         </div>
-      </div>
-    );
-  }
-  else {
-    return (
-      <div className="p-6 items-center justify-center">
-        <h1 className="font-bold text-2xl mb-6">あなたの記事がありません</h1>
-        <Button asChild variant="outline" className="font-bold text-xl">
-          <Link href="/item/create">最初の記事を作成しましょう</Link>
-        </Button>
       </div>
     );
   }

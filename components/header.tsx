@@ -1,30 +1,62 @@
 "use client";
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useToast } from './ui/use-toast';
+import useAuth from '@/app/utils/useAuth';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function Header() {
-  const [token, setToken] = useState<string | null>("kdkkfd");
+  const loginUserEmail = useAuth();
+  const toast = useToast();
+  const router = useRouter();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token")
-    if(storedToken) {
-      setToken(storedToken);
+  const handleLogin = () => {
+    if(loginUserEmail) {
+      toast.toast({
+        title: "既にログインしています",
+      });
     }
-  }, []);
-
+    else {
+      router.push("/user/login");
+    }
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
+    if(loginUserEmail) {
+      localStorage.removeItem("token");
+      toast.toast({
+        title: "ログアウトしました",
+      });
+      router.push("/");
+    }
+    else {
+      toast.toast({
+        title: "ログインしていないためログアウトできません",
+      });
+    }
+  }
+
+  const handleRegister = () => {
+    if(loginUserEmail) {
+      localStorage.removeItem("token");
+      toast.toast({
+        title: "ログアウトしました",
+      });
+    }
+    router.push("/user/register");
   }
 
   return (
-    <header className="h-16 border-b gap-3 px-6 flex items-center">
+    <header className="h-16 border-b gap-3 px-6 flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <Button asChild variant="ghost" className="font-bold text-xl">
+        <Button asChild variant="link" className="font-bold text-xl">
           <Link href="/">Next Blog</Link>
         </Button>
         <Button asChild variant="ghost" className="font-bold">
@@ -36,17 +68,20 @@ export default function Header() {
         <Button asChild variant="ghost" className="font-bold">
           <Link href="/item/create">作成</Link>
         </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="font-bold">認証</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={handleLogin}>ログイン</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>ログアウト</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleRegister}>新規登録</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      <div className="flex items-center gap-3">
-        {token ? (
-          <Button variant="ghost" className="font-bold" onClick={handleLogout}>ログアウト</Button>
-        ): (
-          <Button asChild variant="ghost" className="font-bold">
-            <Link href="/user/login">ログイン</Link>
-          </Button>
-        )}
+      <div className="flex items-end gap-3 ml-auto mr-6">
         <Button asChild className="font-bold">
-          <Link href="/user/login">お問い合わせ</Link>
+          <Link href="/user/contact">お問い合わせ</Link>
         </Button>
       </div>
     </header>
