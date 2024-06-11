@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/router";
 
 export default function Register() {
 
@@ -29,11 +28,21 @@ export default function Register() {
         }),
       });
       const jsonData = await response.json();
-      toast.toast({
-        title: jsonData.message,
-      });
+      if(jsonData.message === "ユーザー登録成功") {
+        toast.toast({
+          title: jsonData.message,
+        });
+        window.location.href = `${process.env.NEXT_PUBLIC_URL}/user/login`;
+      }
+      else {
+        toast.toast({
+          variant: "destructive",
+          title: jsonData.message,
+        })
+      }
     } catch(err) {
       toast.toast({
+        variant: "destructive",
         title: "ユーザー登録失敗",
       });
     }

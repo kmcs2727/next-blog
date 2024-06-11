@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useToast } from './ui/use-toast';
-import useAuth from '@/app/utils/useAuth';
+import checkLogin from '@/app/utils/useAuth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,12 +13,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export default function Header() {
-  const loginUserEmail = useAuth();
+  const loginUserEmail = checkLogin();
   const toast = useToast();
   const router = useRouter();
 
   const handleLogin = () => {
-    if(loginUserEmail) {
+    if(loginUserEmail !== "") {
       toast.toast({
         title: "既にログインしています",
       });
@@ -29,7 +29,7 @@ export default function Header() {
   }
 
   const handleLogout = () => {
-    if(loginUserEmail) {
+    if(loginUserEmail !== "") {
       localStorage.removeItem("token");
       toast.toast({
         title: "ログアウトしました",
@@ -44,7 +44,7 @@ export default function Header() {
   }
 
   const handleRegister = () => {
-    if(loginUserEmail) {
+    if(loginUserEmail !== "") {
       localStorage.removeItem("token");
       toast.toast({
         title: "ログアウトしました",
