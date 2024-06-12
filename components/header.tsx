@@ -14,7 +14,6 @@ import {
 
 export default function Header() {
   const loginUserEmail = checkLogin();
-  console.log("emailは", loginUserEmail);
   const toast = useToast();
   const router = useRouter();
 

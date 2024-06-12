@@ -10,7 +10,6 @@ interface JwtPayload {
 const useAuth = () => {
 	const [loginUserEmail, setLoginUserEmail] = useState<string>("");
 	const router = useRouter();
-	console.log("useAuth呼ばれる");
 	useEffect(() => {
 		const checkToken = async() => {
 			const token = localStorage.getItem("token");
