@@ -12,7 +12,6 @@ const useAuth = () => {
 	const router = useRouter();
 	useEffect(() => {
 		const checkToken = async() => {
-			console.log("呼ばれてる");
 			const token = localStorage.getItem("token");
 			if(!token){
 				router.push("/user/login");
