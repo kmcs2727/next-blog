@@ -4,16 +4,17 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useToast } from './ui/use-toast';
-import checkLogin from '@/app/utils/useAuth';
+import checkLogin from '@/app/utils/checkLogin';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"; 
 
 export default function Header() {
   const loginUserEmail = checkLogin();
+  console.log("emailは", loginUserEmail);
   const toast = useToast();
   const router = useRouter();
 

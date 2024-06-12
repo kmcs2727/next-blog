@@ -7,7 +7,7 @@ interface JwtPayload {
 	email: string
 }
 
-const useAuth = () => {
+const checkLogin = () => {
 	const [loginUserEmail, setLoginUserEmail] = useState<string>("");
 	const router = useRouter();
 
@@ -30,4 +30,4 @@ const useAuth = () => {
 	return loginUserEmail;
 }
 
-export default useAuth;
+export default checkLogin;
