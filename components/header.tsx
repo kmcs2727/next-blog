@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useToast } from './ui/use-toast';
-import checkLogin from '@/app/utils/checkLogin';
+import useCheckLogin from '@/app/utils/useCheckLogin';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"; 
 
 export default function Header() {
-  const loginUserEmail = checkLogin();
+  const loginUserEmail = useCheckLogin();
   const toast = useToast();
   const router = useRouter();
 

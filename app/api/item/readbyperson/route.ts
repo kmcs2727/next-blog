@@ -4,6 +4,7 @@ import { ItemModel } from "@/app/utils/schemaModels";
 
 export async function POST(request: any) {
 	const requestBody = await request.json();
+	console.log("email", requestBody.email);
 	try {
 		await connectDB();
 		const itemsByPerson = await ItemModel.find({email: requestBody.email});

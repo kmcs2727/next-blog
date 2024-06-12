@@ -10,18 +10,21 @@ export default function MyPage() {
 
   useEffect(() => {
     const getItemsByPerson = async() => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readbyperson`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: loginUserEmail
-        })
-      });
-      const jsonData = await response.json();
-      setItemsByPerson(jsonData.itemsByPerson);
+      if(loginUserEmail) {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readbyperson`, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: loginUserEmail
+          })
+        });
+        const jsonData = await response.json();
+        setItemsByPerson(jsonData.itemsByPerson);
+        console.log(jsonData.itemsByPerson);
+      }
     }
     getItemsByPerson();
   }, [loginUserEmail]);
@@ -45,5 +48,4 @@ export default function MyPage() {
       </div>
     </div>
   );
-
 }
