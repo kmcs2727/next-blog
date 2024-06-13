@@ -19,10 +19,12 @@ export default async function ReadAllItems() {
       <Header />
       <div className="p-6 items-center justify-center">
         <h1 className="font-bold text-2xl mb-6">ブログ検索</h1>
-        <Input type="text" placeholder="キーワードを入力してください"/>
-        <Button asChild variant="outline" className="font-bold">
-          <Link href="/item/readall">検索</Link>
-        </Button>
+        <div className="flex mb-6 w-full max-w-md">
+          <Input type="text" placeholder="キーワードを入力してください" className="flex-grow mr-2"/>
+          <Button asChild variant="outline" className="font-bold">
+            <Link href="/item/readall">検索</Link>
+          </Button>
+        </div>
         <h1 className="font-bold text-2xl mb-6">記事一覧</h1>
         <div className="grid grid-cols-2 gap-20">
           {allItems?.map((item: any) => (

@@ -6,18 +6,27 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/app/utils/useAuth";
 import Header from "@/app/components/header";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function CreateItem() {
 
   const [title,setTtile] = useState("");
   const [content, setContent] = useState("");
   const loginUserEmail = useAuth();
+  const toast = useToast();
 
   const router = useRouter();
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     try {
+      var now = new Date();
+      const now_year = now.getFullYear();
+      const now_month = now.getMonth() + 1;
+      const now_date = now.getDate();
+      const now_hour = now.getHours();
+      const now_minute = now.getMinutes();
+      const date = now_year + "/" + now_month + "/" + now_date + "/" + now_hour + ":" + now_minute;
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/create`, {
         method: "POST",
         headers: {
@@ -28,17 +37,33 @@ export default function CreateItem() {
         body: JSON.stringify({
           title: title,
           content: content,
-          email: loginUserEmail
+          email: loginUserEmail,
+          createDate: date,
+          updateDate: date,
         })
       });
       const jsonData = await response.json();
-      alert(jsonData.message);
+      if(jsonData.message === "アイテム作成成功") {
+        toast.toast({
+          title: "アイテムを作成しました",
+        });
+      }
+      else {
+        toast.toast({
+          title: "アイテム作成に失敗しました",
+          variant: "destructive",
+        });
+      }
       router.push("/");
       router.refresh();
     } catch(err) {
-      alert("アイテム作成失敗");
+      toast.toast({
+        title: "アイテム作成に失敗しました",
+        variant: "destructive",
+      });
     }
   }
+
   if(loginUserEmail){
     return (
       <div>

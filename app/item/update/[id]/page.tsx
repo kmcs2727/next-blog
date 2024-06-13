@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/app/utils/useAuth";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function UpdateItem(context: any) {
 
@@ -13,6 +14,7 @@ export default function UpdateItem(context: any) {
 	const [email, setEmail] = useState("");
 
   const router = useRouter();
+  const toast = useToast();
 
   const loginUserEmail = useAuth();
 
@@ -31,6 +33,13 @@ export default function UpdateItem(context: any) {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     try {
+      var now = new Date();
+      const now_year = now.getFullYear();
+      const now_month = now.getMonth() + 1;
+      const now_date = now.getDate();
+      const now_hour = now.getHours();
+      const now_minute = now.getMinutes();
+      const date = now_year + "/" + now_month + "/" + now_date + "/" + now_hour + ":" + now_minute;
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/update/${context.params.id}`, {
         method: "PUT",
         headers: {
@@ -42,14 +51,27 @@ export default function UpdateItem(context: any) {
           title: title,
           content: content,
           email: loginUserEmail,
+          updateDate: date,
         })
       });
       const jsonData = await response.json();
-      alert(jsonData.message);
+      if(jsonData.message === "アイテム編集成功") {
+        toast.toast({
+          title: "アイテムの編集をしました",
+        });
+      }
+      else {
+        toast.toast({
+          title: jsonData.message,
+        })
+      }
       router.push("/");
       router.refresh();
     } catch(err) {
-      alert("アイテム編集失敗");
+      toast.toast({
+        title: "アイテムの編集に失敗しました",
+        variant: "destructive",
+      });
     }
   }
 

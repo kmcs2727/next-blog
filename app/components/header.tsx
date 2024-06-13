@@ -8,7 +8,6 @@ import useCheckLogin from '@/app/utils/useCheckLogin';
 
 export default function Header() {
   const loginUserEmail = useCheckLogin();
-  console.log("header", loginUserEmail);
   const toast = useToast();
   const router = useRouter();
 

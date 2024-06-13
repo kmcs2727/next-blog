@@ -6,6 +6,8 @@ const ItemSchema = new Schema({
   title: String,
   content: String,
   email: String,
+  createDate: String,
+  updateDate: String,
 });
 
 const UserSchema = new Schema({
