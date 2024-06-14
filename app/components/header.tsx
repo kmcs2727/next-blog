@@ -36,7 +36,7 @@ export default function Header() {
       <>
         <div className="flex items-center gap-3 hidden md:block">
           <Button asChild variant="link" className="font-bold text-xl">
-            <Link href="/">Next Blog</Link>
+            <Link href="/">NX-BLOG</Link>
           </Button>
           <Button asChild variant="ghost" className="font-bold">
             <Link href="/item/readall">記事一覧</Link>
@@ -71,7 +71,7 @@ export default function Header() {
       <>
         <div className="flex items-center gap-3 block md:hidden">
           <Button asChild variant="link" className="font-bold text-xl">
-            <Link href="/">Next Blog</Link>
+            <Link href="/">NX-BLOG</Link>
           </Button>
         </div>
         <div className="flex items-end gap-3 ml-auto mr-6 block md:hidden">
