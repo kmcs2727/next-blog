@@ -6,31 +6,27 @@ import { useEffect, useState } from "react";
 
 export default function ReadTodayItems() {
   const loginUserEmail = useCheckLogin();
-  console.log(loginUserEmail);
   const [itemsToday, setItemsToday] = useState([]);
 
   useEffect(() => {
     const getItemsByPerson = async() => {
-      if(loginUserEmail) {
-        var now = new Date();
-        const now_year = now.getFullYear();
-        const now_month = now.getMonth() + 1;
-        const now_date = now.getDate();
-        const today = now_year + "/" + now_month + "/" + now_date;
-        console.log(today);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readtoday`, {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            today: today,
-          })
-        });
-        const jsonData = await response.json();
-        setItemsToday(jsonData.itemsToday);
-      }
+      var now = new Date();
+      const now_year = now.getFullYear();
+      const now_month = now.getMonth() + 1;
+      const now_date = now.getDate();
+      const today = now_year + "/" + now_month + "/" + now_date;
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readtoday`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          today: today,
+        })
+      });
+      const jsonData = await response.json();
+      setItemsToday(jsonData.itemsToday);
     }
     getItemsByPerson();
   }, [loginUserEmail]);
