@@ -7,7 +7,6 @@ import Header from "@/app/components/header";
 
 export default function MyPage() {
   const loginUserEmail = useAuth();
-  console.log("Mypage", loginUserEmail);
   const [itemsByPerson, setItemsByPerson] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ export default function MyPage() {
         });
         const jsonData = await response.json();
         setItemsByPerson(jsonData.itemsByPerson);
-        console.log(jsonData.itemsByPerson);
       }
     }
     getItemsByPerson();

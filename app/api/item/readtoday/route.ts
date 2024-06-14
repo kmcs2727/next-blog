@@ -6,10 +6,10 @@ export async function POST(request: any) {
 	const requestBody = await request.json();
 	try {
 		await connectDB();
-		const itemsByPerson = await ItemModel.find({email: requestBody.email});
-		return NextResponse.json({message: "アイテム読み取り成功(ByPERSON)", itemsByPerson: itemsByPerson});
+		const itemsToday = await ItemModel.find({createDate: {$regex: requestBody.today}});
+		return NextResponse.json({message: "アイテム読み取り成功(today)", itemsToday: itemsToday});
 	} catch(err) {
-		return NextResponse.json({message: "アイテム読み取り失敗(ByPERSON)"});
+		return NextResponse.json({message: "アイテム読み取り失敗(today)"});
 	}
 }
 
