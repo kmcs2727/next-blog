@@ -4,7 +4,6 @@ import { ItemModel } from "@/app/utils/schemaModels";
 
 export async function POST(request: any){
   const requestBody = await request.json();
-  console.log(requestBody);
   try {
     await connectDB();
     await ItemModel.create(requestBody);
