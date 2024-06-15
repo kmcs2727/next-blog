@@ -71,18 +71,18 @@ export default function ReadAllItems() {
           </div>
           <div>
             <h1 className="font-bold text-2xl mb-6">記事一覧</h1>
-            <div className="grid grid-cols-2 gap-20">
-              {allItems?.map((item: any) => (
-                <div key={item._id} className="border p-2 rounded-lg relative">
-                  <Link href={`/item/readsingle/${item._id}`}>
-                    <h3 className="font-bold">{item.title}</h3>
-                    <p>最終更新日: {item.updateDate}</p>
-                    <p>{item.content.substring(0, 20)}</p>
-                    <span className="absolute inset-0"></span>
-                  </Link>
-                </div>
-              ))}
-            </div>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10">
+            {allItems?.map((item: any) => (
+              <div key={item._id} className="border p-2 rounded-lg relative">
+                <Link href={`/item/readsingle/${item._id}`}>
+                  <h3 className="font-bold">{item.title}</h3>
+                  <p>最終更新日: {item.updateDate}</p>
+                  <p>{item.content.substring(0, 80)}</p>
+                  <span className="absolute inset-0"></span>
+                </Link>
+              </div>
+            ))}
+          </div>
           </div>
         </div>
       </div>
