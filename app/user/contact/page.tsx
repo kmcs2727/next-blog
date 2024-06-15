@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast';
 import React, { useState } from 'react'
 
-export default function page() {
+export default function Contact() {
   const loginUserEmail = useAuth();
   const toast = useToast();
   const [title, setTitle] = useState("");
