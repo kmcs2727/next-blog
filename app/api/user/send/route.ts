@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 import { EmailTemplate } from '@/app/components/email-template';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL;
+const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL as string;
 
 export async function POST(request: any) {
 	const requestBody = await request.json();
