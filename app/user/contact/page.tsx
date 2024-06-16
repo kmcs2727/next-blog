@@ -53,13 +53,14 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <div className="container">
-        <div className="p-6 items-center justify-center">
-          <h1 className="font-bold text-2xl mb-6">お問い合わせ内容</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-md">
+      <div className="container flex items-start justify-center p-4">
+        <div className="p-6 items-center justify-center w-full max-w-lg">
+          <h1 className="font-bold text-2xl mb-6 text-center">お問い合わせ内容</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
             <Input 
               className="mb-4 w-3/4" 
-              type="text" name="title" 
+              type="text" 
+              name="title" 
               placeholder="タイトル" 
               required 
               value={title} 
@@ -71,8 +72,8 @@ export default function Contact() {
               placeholder="内容" 
               required 
               value={content} 
-              onChange={(e) => setContent(e.target.value)}>
-            </Textarea>
+              onChange={(e) => setContent(e.target.value)}
+            />
             <Button type="submit" variant={'outline'}>送信</Button>
           </form>
         </div>

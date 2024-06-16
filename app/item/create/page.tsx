@@ -10,11 +10,10 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function CreateItem() {
 
-  const [title,setTtile] = useState("");
+  const [title,setTitle] = useState("");
   const [content, setContent] = useState("");
   const loginUserEmail = useAuth();
   const toast = useToast();
-
   const router = useRouter();
 
   const handleSubmit = async(e: any) => {
@@ -66,17 +65,34 @@ export default function CreateItem() {
 
   if(loginUserEmail){
     return (
-      <div>
+      <>
         <Header />
-        <div className="p-6 items-center justify-center">
-          <h1 className="font-bold text-2xl mb-6">記事作成</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-md">
-            <Input className="mb-4 w-3/4" type="text" name="title" placeholder="タイトル" required value={title} onChange={(e) => setTtile(e.target.value)}/>
-            <Textarea className="mb-4 w-3/4" name="content" placeholder="内容" value={content} onChange={(e) => setContent(e.target.value)}></Textarea>
-            <Button variant={'outline'}>作成</Button>
-          </form>
+        <div className="container flex items-start justify-center p-4">
+          <div className="p-6 items-center justify-center w-full max-w-lg">
+            <h1 className="font-bold text-2xl mb-6 text-center">ブログ作成</h1>
+            <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+              <Input 
+                className="mb-4 w-3/4" 
+                type="text" 
+                name="title" 
+                placeholder="タイトル" 
+                required 
+                value={title} 
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <Textarea 
+                className="mb-4 w-3/4" 
+                name="content" 
+                placeholder="内容" 
+                required 
+                value={content} 
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <Button type="submit" variant={'outline'}>作成</Button>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import Header from "@/app/components/header";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
 
   const toast = useToast();
+  const router = useRouter();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +35,7 @@ export default function Register() {
         toast.toast({
           title: jsonData.message,
         });
-        window.location.href = `${process.env.NEXT_PUBLIC_URL}/user/login`;
+        router.push("/user/login");
       }
       else {
         toast.toast({
@@ -47,6 +49,9 @@ export default function Register() {
         title: "ユーザー登録失敗",
       });
     }
+    setName("");
+    setEmail("");
+    setPassword("");
   }
 
   return (
